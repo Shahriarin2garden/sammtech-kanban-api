@@ -45,7 +45,6 @@ Health check: `GET /api/health` → `{ status, db, uptime }`.
 | `BCRYPT_ROUNDS`      |          | `12`                                                        |                                          |
 | `THROTTLE_TTL_MS`    |          | `60000`                                                     | Global rate-limit window                 |
 | `THROTTLE_LIMIT`     |          | `100`                                                       | Requests per window per IP               |
-| `AUTH_THROTTLE_LIMIT`|          | `5`                                                         | Reserved for tighter auth-route limits   |
 
 ---
 
