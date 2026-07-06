@@ -13,7 +13,6 @@ export interface AppConfig {
   throttle: {
     ttlMs: number;
     limit: number;
-    authLimit: number;
   };
 }
 
@@ -32,7 +31,6 @@ export default (): AppConfig => ({
   throttle: {
     ttlMs: parseInt(process.env.THROTTLE_TTL_MS ?? '60000', 10),
     limit: parseInt(process.env.THROTTLE_LIMIT ?? '100', 10),
-    authLimit: parseInt(process.env.AUTH_THROTTLE_LIMIT ?? '5', 10),
   },
 });
 

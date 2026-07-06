@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Priority, Task } from '@prisma/client';
+import { Prisma, Task } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -10,13 +10,6 @@ export class TasksRepository {
     return this.prisma.task.findFirst({
       where: { id, deletedAt: null },
       include: { labels: true, column: { include: { board: true } } },
-    });
-  }
-
-  findByIdRaw(id: string) {
-    return this.prisma.task.findUnique({
-      where: { id },
-      include: { column: { include: { board: true } } },
     });
   }
 
@@ -37,7 +30,7 @@ export class TasksRepository {
     userId: string,
     filters: {
       q?: string;
-      priority?: Priority;
+      priority?: string;
       dueBefore?: Date;
       dueAfter?: Date;
       boardId?: string;
@@ -48,7 +41,7 @@ export class TasksRepository {
     const where: Prisma.TaskWhereInput = {
       deletedAt: null,
       column: { board: { ownerId: userId, deletedAt: null, ...(filters.boardId ? { id: filters.boardId } : {}) } },
-      ...(filters.q ? { title: { contains: filters.q, mode: 'insensitive' } } : {}),
+      ...(filters.q ? { title: { contains: filters.q } } : {}),
       ...(filters.priority ? { priority: filters.priority } : {}),
       ...(filters.dueBefore || filters.dueAfter
         ? {

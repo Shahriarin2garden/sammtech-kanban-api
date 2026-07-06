@@ -38,7 +38,8 @@ async function bootstrap(): Promise<void> {
   });
 
   const port = config.getOrThrow<number>('port');
-  await app.listen(port);
+  // Bind to 0.0.0.0 so WSL and Docker can reach the server when running on host
+  await app.listen(port, '0.0.0.0');
   logger.log(`Listening on :${port} (docs at /docs)`);
 }
 

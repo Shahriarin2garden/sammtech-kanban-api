@@ -24,7 +24,8 @@ export class UsersService {
 
   toPublic(user: User): PublicUser {
     // Strip passwordHash — never leak.
-    const { passwordHash: _pw, ...rest } = user;
+    const { passwordHash, ...rest } = user;
+    void passwordHash;
     return rest;
   }
 }

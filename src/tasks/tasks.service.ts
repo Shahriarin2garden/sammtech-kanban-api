@@ -4,7 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Task } from '@prisma/client';
+import { Prisma, Task } from '@prisma/client';
 import { ColumnsRepository } from '../columns/columns.repository';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -253,7 +253,7 @@ export class TasksService {
     metadata?: Record<string, unknown>,
   ) {
     return this.prisma.activityLog.create({
-      data: { taskId, userId, action, metadata: metadata ?? undefined },
+      data: { taskId, userId, action, metadata: (metadata ?? undefined) as Prisma.InputJsonValue },
     });
   }
 }

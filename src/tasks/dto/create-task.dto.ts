@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Priority } from '@prisma/client';
+import { Priority } from '../priority.enum';
 import { Type } from 'class-transformer';
 import {
   ArrayMaxSize,
@@ -8,7 +8,6 @@ import {
   IsEnum,
   IsOptional,
   IsString,
-  IsUUID,
   MaxLength,
   MinLength,
   ValidateNested,

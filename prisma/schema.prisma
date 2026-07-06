@@ -75,18 +75,13 @@ model Column {
   @@map("columns")
 }
 
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
-}
+// Priority stored as String (enum removed to simplify schema)
 
 model Task {
   id          String    @id @default(cuid())
   title       String
   description String?
-  priority    Priority  @default(MEDIUM)
+  priority    String    @default("MEDIUM")
   dueDate     DateTime?
   position    Float
   columnId    String
@@ -124,7 +119,7 @@ model ActivityLog {
   taskId    String
   userId    String
   action    String   // e.g. "created" | "moved" | "updated" | "deleted"
-  metadata  Json?    // { from: {columnId, position}, to: {...} }
+  metadata  Json?
   createdAt DateTime @default(now())
 
   task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
