@@ -94,6 +94,7 @@ model Task {
   assignee     User?         @relation("TaskAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
   labels       TaskLabel[]
   activityLogs ActivityLog[]
+  attachments  Attachment[]
 
   @@index([columnId, position])
   @@index([assigneeId])
@@ -112,6 +113,21 @@ model TaskLabel {
 
   @@index([taskId])
   @@map("task_labels")
+}
+
+model Attachment {
+  id        String   @id @default(cuid())
+  taskId    String
+  fileName  String
+  fileUrl   String
+  mimeType  String
+  size      Int
+  createdAt DateTime @default(now())
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId])
+  @@map("attachments")
 }
 
 model ActivityLog {

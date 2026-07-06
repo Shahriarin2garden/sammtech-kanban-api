@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { AttachmentsModule } from './attachments/attachments.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { BoardsModule } from './boards/boards.module';
@@ -32,6 +33,7 @@ import { UsersModule } from './users/users.module';
     BoardsModule,
     ColumnsModule,
     TasksModule,
+    AttachmentsModule,
     HealthModule,
   ],
   providers: [
