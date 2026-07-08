@@ -5,7 +5,7 @@ services:
     region: singapore
     plan: free
     buildCommand: npm ci --include=dev && npm run build
-    startCommand: npx prisma migrate deploy && node dist/main.js
+    startCommand: sh -c "sleep 15 && npx prisma migrate deploy && node dist/main.js"
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
@@ -15,7 +15,9 @@ services:
       - key: CORS_ORIGIN
         value: https://sammtech-kanban-api.onrender.com
       - key: DATABASE_URL
-        value: postgresql://kanban_fxjh_user:tK9m4QeSBTuyEYlZOTyBdyB9Vtr1Vkj7@dpg-d95u1bnavr4c73avkfa0-a.singapore-postgres.render.com:5432/kanban_fxjh?sslmode=require
+        fromDatabase:
+          name: kanban-db
+          property: connectionString
       - key: JWT_ACCESS_SECRET
         generateValue: true
       - key: JWT_ACCESS_TTL
