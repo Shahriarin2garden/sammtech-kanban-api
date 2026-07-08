@@ -18,6 +18,8 @@ services:
         fromDatabase:
           name: kanban-db
           property: connectionString
+      - key: DATABASE_URL
+        value: postgresql://kanban_fxjh_user:tK9m4QeSBTuyEYlZOTyBdyB9Vtr1Vkj7@dpg-d95u1bnavr4c73avkfa0-a.singapore-postgres.render.com:5432/kanban_fxjh?sslmode=require&connect_timeout=30
       - key: JWT_ACCESS_SECRET
         generateValue: true
       - key: JWT_ACCESS_TTL
