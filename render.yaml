@@ -5,7 +5,7 @@ services:
     region: singapore
     plan: free
     buildCommand: npm ci --include=dev && npm run build
-    startCommand: npx prisma migrate deploy && node dist/main.js
+    startCommand: ./start.sh
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
