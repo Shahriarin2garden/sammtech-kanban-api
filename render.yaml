@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: sammtech-kanban-api-v2
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm ci --include=dev
+    startCommand: node server.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_PREFIX
+        value: api
+      - key: CORS_ORIGIN
+        value: '*'
+      - key: DATABASE_URL
+        value: postgresql://kanban_fxjh_user:tK9m4QeSBTuyEYlZOTyBdyB9Vtr1Vkj7@dpg-d95u1bnavr4c73avkfa0-a.singapore-postgres.render.com:5432/kanban_fxjh?sslmode=require
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_TTL
+        value: 15m
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_TTL
+        value: 7d
+      - key: BCRYPT_ROUNDS
+        value: 12
+      - key: THROTTLE_TTL_MS
+        value: '60000'
+      - key: THROTTLE_LIMIT
+        value: '100'
+      - key: CLOUDINARY_CLOUD_NAME
+        value: dev
+      - key: CLOUDINARY_API_KEY
+        value: dev
+      - key: CLOUDINARY_API_SECRET
+        value: dev
