@@ -39,8 +39,7 @@ export class ColumnsController {
   }
 
   @Delete('columns/:id')
-  @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@CurrentUser('sub') userId: string, @Param('id') id: string) {
-    await this.columns.remove(userId, id);
+    return this.columns.remove(userId, id);
   }
 }

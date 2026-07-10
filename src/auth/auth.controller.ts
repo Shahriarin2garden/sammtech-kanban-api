@@ -41,9 +41,8 @@ export class AuthController {
 
   @Post('logout')
   @ApiBearerAuth()
-  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Revoke all refresh tokens for current user' })
   async logout(@CurrentUser('sub') userId: string) {
-    await this.auth.logout(userId);
+    return this.auth.logout(userId);
   }
 }

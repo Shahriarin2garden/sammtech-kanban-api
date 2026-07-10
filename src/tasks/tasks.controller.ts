@@ -57,8 +57,7 @@ export class TasksController {
   }
 
   @Delete('tasks/:id')
-  @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@CurrentUser('sub') userId: string, @Param('id') id: string) {
-    await this.tasks.remove(userId, id);
+    return this.tasks.remove(userId, id);
   }
 }
