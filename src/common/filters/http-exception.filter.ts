@@ -9,14 +9,6 @@ import {
 import { Prisma } from '@prisma/client';
 import { Request, Response } from 'express';
 
-interface ErrorBody {
-  statusCode: number;
-  message: string | string[];
-  error: string;
-  path: string;
-  timestamp: string;
-}
-
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
   private readonly logger = new Logger(AllExceptionsFilter.name);
@@ -28,19 +20,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     const { status, message, error } = this.resolve(exception);
 
-    const body: ErrorBody = {
-      statusCode: status,
-      message,
-      error,
-      path: req.url,
-      timestamp: new Date().toISOString(),
-    };
-
     if (status >= 500) {
       this.logger.error(`${req.method} ${req.url} → ${status}`, (exception as Error)?.stack);
     }
 
-    res.status(status).json(body);
+    res.status(status).json({
+      success: false,
+      data: null,
+      error: { statusCode: status, message, error, path: req.url, timestamp: new Date().toISOString() },
+    });
   }
 
   private resolve(exception: unknown): { status: number; message: string | string[]; error: string } {
